@@ -198,7 +198,7 @@ img {
   font-weight: 400;
 }
 
-.articles-ul {
+.article-ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -215,7 +215,7 @@ img {
   width: 260px;
 }
 
-.articles-ul li a {
+.article-ul li a {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -224,7 +224,7 @@ img {
 }
 
 @media only screen and (min-width: 768px) {
-  .articles-ul li a {
+  .article-ul li a {
     flex-direction: row;
     align-items: center;
   }
@@ -234,25 +234,25 @@ img {
   }
 }
 
-.articles-ul li {
+.article-ul li {
   font-size: 24px;
   cursor: pointer;
   transition: filter 0.1s;
 }
 
-.articles-ul li:not(:last-child) {
+.article-ul li:not(:last-child) {
   border-bottom: 1px solid var(--gray-light);
 }
 
-.articles-ul li:hover {
+.article-ul li:hover {
   filter: none;
 }
 
-.articles-ul:hover li {
+.article-ul:hover li {
   filter: blur(3px);
 }
 
-.articles-ul:hover li:hover {
+.article-ul:hover li:hover {
   filter: none;
 }
 
