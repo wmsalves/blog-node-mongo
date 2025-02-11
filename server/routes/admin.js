@@ -10,20 +10,21 @@ const jwtSecret = process.env.JWT_SECRET;
 
 /**
  *
- * Admin - Check Login
+ * Check Login
  */
-
 const authMiddleware = (req, res, next) => {
-  const token = req.cookie.token;
+  const token = req.cookies.token;
+
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
   }
+
   try {
     const decoded = jwt.verify(token, jwtSecret);
     req.userId = decoded.userId;
     next();
   } catch (error) {
-    return res.status(401).json({ message: "Unauthorized" });
+    res.status(401).json({ message: "Unauthorized" });
   }
 };
 
@@ -74,27 +75,69 @@ router.post("/admin", async (req, res) => {
 });
 
 /**
- * POST /
- * Admin - Check Login
+ * GET /
+ * Admin Dashboard
  */
 
 router.get("/dashboard", authMiddleware, async (req, res) => {
-  res.render("admin/dashboard");
+  try {
+    const locals = {
+      title: "Dashboard",
+      description: "Simple Blog created with NodeJs, Express & MongoDb.",
+    };
+    const data = await Post.find();
+    res.render("admin/dashboard", {
+      locals,
+      data,
+      layout: adminLayout,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
-// router.post("/admin", async (req, res) => {
-//   try {
-//     const { username, password } = req.body;
+/**
+ * GET /
+ * Admin - Create New Post
+ */
 
-//     if ((req.body.username === "admin") & (req.body.password === "password")) {
-//       res.send("You are logged in.");
-//     } else {
-//       res.send("Wrong username or password.");
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
+router.get("/add-post", authMiddleware, async (req, res) => {
+  try {
+    const locals = {
+      title: "Add Post",
+      description: "Simple Blog created with NodeJs, Express & MongoDb.",
+    };
+    const data = await Post.find();
+    res.render("admin/add-post", {
+      locals,
+      layout: adminLayout,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+/**
+ * POST /
+ * Admin - Create New Post
+ */
+
+router.post("/add-post", authMiddleware, async (req, res) => {
+  try {
+    try {
+      const newPost = new Post({
+        title: req.body.title,
+        body: req.body.body,
+      });
+      await Post.create(newPost);
+      res.redirect("/dashboard");
+    } catch (error) {
+      console.log(error);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 /**
  * GET /
