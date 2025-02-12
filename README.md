@@ -1,4 +1,8 @@
-# NodeJS, Express, EJS & MongoDB Blog - CRUD Application
+<h1 align="center">NodeJS, Express, EJS & MongoDB Blog - CRUD Application</h1>
+
+<p align="center">
+  <img src="/finishedProject.png?raw=true" alt="finished project">
+</p>
 
 This is a simple blog application that demonstrates CRUD (Create, Read, Update, Delete) operations using Node.js, Express, EJS, and MongoDB. The application allows users to create, view, edit, and delete blog posts, making it an excellent starting point for learning about full-stack development with these technologies.
 
